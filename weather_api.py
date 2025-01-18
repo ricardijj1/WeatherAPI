@@ -9,21 +9,22 @@ weather_data = response.json()
 
 file_path = "data/json/response.json"
 
-
+#open json file 
 with open(file_path, "w") as json_file:
+#save json file 
     json.dump(weather_data, json_file, indent=4)  
 
 print(f"JSON data saved to {file_path}")
 
 
-
+#create  dictionnary filtler wanted columns 
 new_weather_data = {"time": weather_data["hourly"]["time"],
                     "temperature": weather_data["hourly"]["temperature_2m"],
     "relative humidity": weather_data["hourly"]["relative_humidity_2m"],
     "precipitation": weather_data["hourly"]["precipitation"],
     "surface pressure": weather_data["hourly"]["surface_pressure"]}
 df = pd.DataFrame(new_weather_data)
-df.dropna(inplace=True)
+
 df.to_csv("data/csv/weather_data_filtered.csv")
 
 
